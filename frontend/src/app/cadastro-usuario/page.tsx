@@ -10,7 +10,7 @@ export default function CadastroUsuario() {
   const handleCadastro = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch('http://https://acupuntura-manager.onrender.com/cadastro', {
+    const res = await fetch('https://acupuntura-manager.onrender.com/cadastro', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome, email, senha }),
