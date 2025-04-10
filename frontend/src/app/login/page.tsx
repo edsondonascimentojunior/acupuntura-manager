@@ -1,29 +1,34 @@
 'use client';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [mensagem, setMensagem] = useState('');
+  const [erro, setErro] = useState('');
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch('https://acupuntura-backend-9qd7.onrender.com/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, senha }),
-    });
+    try {
+      const res = await fetch('https://acupuntura-backend-9qd7.onrender.com/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      localStorage.setItem('usuarioNome', data.usuario.nome); // salva no navegador
-      router.push('/dashboard');
-    } else {
-      setMensagem(data.erro || 'Erro ao fazer login');
+      if (res.ok) {
+        localStorage.setItem('usuarioNome', data.usuario.nome);
+        router.push('/dashboard');
+      } else {
+        setErro(data.erro || 'Erro ao fazer login.');
+      }
+    } catch (err) {
+      setErro('Erro ao conectar com o servidor.');
     }
   };
 
@@ -50,15 +55,14 @@ export default function LoginPage() {
           required
         />
 
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+        >
           Entrar
         </button>
 
-        <p className="text-center mt-4">
-          Ainda não tem conta? <a href="/cadastro-usuario" className="text-blue-600 underline">Cadastre-se</a>
-        </p>
-
-        {mensagem && <p className="mt-4 text-center">{mensagem}</p>}
+        {erro && <p className="mt-4 text-red-600 text-center">{erro}</p>}
       </form>
     </div>
   );

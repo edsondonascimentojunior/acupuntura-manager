@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Layout from '@/components/Layout';
 
 export default function CadastroPaciente() {
   const [nome, setNome] = useState('');
@@ -28,42 +29,44 @@ export default function CadastroPaciente() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Cadastro de Paciente</h2>
+    <Layout>
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
+          <h2 className="text-2xl font-semibold mb-6 text-center">Cadastro de Paciente</h2>
 
-        <label className="block mb-2">Nome:</label>
-        <input
-          type="text"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
-          required
-        />
+          <label className="block mb-2">Nome:</label>
+          <input
+            type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            className="w-full mb-4 p-2 border rounded"
+            required
+          />
 
-        <label className="block mb-2">Telefone:</label>
-        <input
-          type="text"
-          value={telefone}
-          onChange={(e) => setTelefone(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
-          required
-        />
+          <label className="block mb-2">Telefone:</label>
+          <input
+            type="text"
+            value={telefone}
+            onChange={(e) => setTelefone(e.target.value)}
+            className="w-full mb-4 p-2 border rounded"
+            required
+          />
 
-        <label className="block mb-2">Email (opcional):</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
-        />
+          <label className="block mb-2">Email (opcional):</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full mb-4 p-2 border rounded"
+          />
 
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
-          Cadastrar
-        </button>
+          <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+            Cadastrar
+          </button>
 
-        {mensagem && <p className="text-center mt-4">{mensagem}</p>}
-      </form>
-    </div>
+          {mensagem && <p className="text-center mt-4">{mensagem}</p>}
+        </form>
+      </div>
+    </Layout>
   );
 }
