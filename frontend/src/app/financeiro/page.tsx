@@ -10,13 +10,13 @@ export default function PagamentosPage() {
   }, []);
 
   const fetchPagamentos = async () => {
-    const res = await fetch('https://acupuntura-manager.onrender.com/api/pagamentos');
+    const res = await fetch('https://acupuntura-backend-9qd7.onrender.com/api/pagamentos');
     const data = await res.json();
     setPagamentos(data);
   };
 
   const marcarComoPago = async (id: number) => {
-    const res = await fetch(`https://acupuntura-manager.onrender.com/api/pagamentos/${id}/pagar`, {
+    const res = await fetch(`https://acupuntura-backend-9qd7.onrender.com/api/pagamentos/${id}/pagar`, {
       method: 'PUT'
     });
 

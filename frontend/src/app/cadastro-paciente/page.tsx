@@ -11,7 +11,7 @@ export default function CadastroPaciente() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch('https://acupuntura-manager.onrender.com/api/pacientes', {
+    const res = await fetch('https://acupuntura-backend-9qd7.onrender.com/api/pacientes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome, telefone, email })
