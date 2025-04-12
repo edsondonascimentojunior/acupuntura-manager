@@ -9,6 +9,7 @@ const menuItems = [
   { label: 'Pacientes', path: '/cadastro-paciente' },
   { label: 'Consultas', path: '/historico-consultas' },
   { label: 'Pagamentos', path: '/financeiro' },
+  { label: 'Cadastro de Usuário', path: '/cadastro-usuario' }, 
   { label: 'Sair', path: '/login' },
 ];
 
