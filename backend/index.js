@@ -227,6 +227,24 @@ app.post("/cadastro", async (req, res) => {
   }
 });
 
+// Listar todos os usuários
+app.get("/api/usuarios", async (req, res) => {
+  try {
+    const usuarios = await prisma.usuario.findMany({
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+      },
+      orderBy: { id: "asc" }
+    });
+    res.json(usuarios);
+  } catch (error) {
+    console.error("Erro ao buscar usuários:", error);
+    res.status(500).json({ erro: "Erro ao buscar usuários" });
+  }
+});
+
 // Login de usuário
 app.post("/api/login", async (req, res) => {
   const { email, senha } = req.body;
