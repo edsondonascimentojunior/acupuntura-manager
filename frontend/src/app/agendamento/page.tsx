@@ -24,7 +24,7 @@ const AgendamentoPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/pacientes")
+      .get("https://acupuntura-backend-9qd7.onrender.com/api/pacientes")
       .then((response) => setPatients(response.data))
       .catch((error) =>
         console.error("Erro ao carregar pacientes:", error)
@@ -35,7 +35,7 @@ const AgendamentoPage = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3001/api/agendamentos", {
+      await axios.post("https://acupuntura-backend-9qd7.onrender.com/api/agendamentos", {
         pacienteId: selectedPatient,
         data: appointmentDate,
         horario: appointmentTime,

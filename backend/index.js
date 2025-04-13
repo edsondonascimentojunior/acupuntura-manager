@@ -330,5 +330,5 @@ app.post("/api/login", async (req, res) => {
 
 // Inicializa o servidor
 app.listen(3001, () => {
-  console.log("Servidor backend rodando em http://localhost:3001");
+  console.log("Servidor backend rodando em https://acupuntura-backend-9qd7.onrender.com");
 });

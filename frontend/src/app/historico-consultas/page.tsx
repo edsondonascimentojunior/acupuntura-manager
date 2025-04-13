@@ -36,7 +36,7 @@ export default function HistoricoConsultasPage() {
   const [valoresSelecionados, setValoresSelecionados] = useState<{ [consultaId: number]: string }>({});
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/pacientes')
+    axios.get('https://acupuntura-backend-9qd7.onrender.com/api/pacientes')
       .then(res => setPacientes(res.data))
       .catch(() => setErro('Erro ao buscar pacientes.'));
   }, []);
@@ -46,7 +46,7 @@ export default function HistoricoConsultasPage() {
     setErro(null);
     setMensagem(null);
     try {
-      const res = await axios.get(`http://localhost:3001/api/pacientes/${pacienteSelecionado}/historico`);
+      const res = await axios.get(`https://acupuntura-backend-9qd7.onrender.com/api/pacientes/${pacienteSelecionado}/historico`);
       setConsultas(res.data);
     } catch {
       setErro('Erro ao buscar histórico do paciente.');
@@ -55,7 +55,7 @@ export default function HistoricoConsultasPage() {
 
   const salvarRegistro = async (consultaId: number, texto: string) => {
     try {
-      await axios.put(`http://localhost:3001/api/consultas/${consultaId}/registro`, {
+      await axios.put(`https://acupuntura-backend-9qd7.onrender.com/api/consultas/${consultaId}/registro`, {
         registroAtendimento: texto,
       });
       setMensagem('Registro salvo com sucesso!');
@@ -76,7 +76,7 @@ export default function HistoricoConsultasPage() {
         pacienteId: pacienteSelecionado,
         registroAtendimento: novoRegistro
       };
-      await axios.post(`http://localhost:3001/api/consultas`, novaConsulta);
+      await axios.post(`https://acupuntura-backend-9qd7.onrender.com/api/consultas`, novaConsulta);
       setMensagem('Nova consulta registrada com sucesso!');
       setErro(null);
       setNovoRegistro('');
@@ -98,7 +98,7 @@ export default function HistoricoConsultasPage() {
     }
 
     try {
-      const res = await axios.patch(`http://localhost:3001/api/consultas/${consultaId}/pagar`, {
+      const res = await axios.patch(`https://acupuntura-backend-9qd7.onrender.com/api/consultas/${consultaId}/pagar`, {
         formaPagamento: forma,
         valor: parseFloat(valor),
       });
