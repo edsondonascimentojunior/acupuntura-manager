@@ -12,7 +12,7 @@ export default function CadastroUsuario() {
   const handleCadastro = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch('https://acupuntura-backend-9qd7.onrender.com/cadastro', {
+    const res = await fetch('http://localhost:3001/cadastro', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome, email, senha }),
@@ -33,7 +33,7 @@ export default function CadastroUsuario() {
 
   const buscarUsuarios = async () => {
     try {
-      const res = await fetch('https://acupuntura-backend-9qd7.onrender.com/api/usuarios');
+      const res = await fetch('http://localhost:3001/api/usuarios');
       const data = await res.json();
       setUsuarios(data);
     } catch (error) {

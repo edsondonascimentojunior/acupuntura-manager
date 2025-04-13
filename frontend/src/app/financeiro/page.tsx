@@ -11,13 +11,13 @@ export default function PagamentosPage() {
   }, []);
 
   const fetchPagamentos = async () => {
-    const res = await fetch('https://acupuntura-backend-9qd7.onrender.com/api/pagamentos');
+    const res = await fetch('http://localhost:3001/api/pagamentos');
     const data = await res.json();
     setPagamentos(data);
   };
 
   const marcarComoPago = async (id: number) => {
-    const res = await fetch(`https://acupuntura-backend-9qd7.onrender.com/api/pagamentos/${id}/pagar`, {
+    const res = await fetch(`http://localhost:3001/api/pagamentos/${id}/pagar`, {
       method: 'PUT'
     });
 
@@ -26,10 +26,15 @@ export default function PagamentosPage() {
     }
   };
 
+  const formatarData = (iso: string) => {
+    const [ano, mes, dia] = iso.split('T')[0].split('-');
+    return `${dia}/${mes}/${ano}`;
+  };
+
   const pagamentosFiltrados = pagamentos.filter((pgto: any) => {
     const nome = pgto.consulta?.paciente?.nome?.toLowerCase() || '';
     const data = pgto.consulta?.data
-      ? new Date(pgto.consulta.data).toLocaleDateString('pt-BR')
+      ? formatarData(pgto.consulta.data)
       : '';
 
     return (
@@ -69,7 +74,7 @@ export default function PagamentosPage() {
                 <td className="p-3">R$ {pgto.valor.toFixed(2)}</td>
                 <td className="p-3">
                   {pgto.consulta?.data
-                    ? new Date(pgto.consulta.data).toLocaleDateString()
+                    ? formatarData(pgto.consulta.data)
                     : '---'}
                 </td>
                 <td className="p-3">{pgto.formaPagamento}</td>

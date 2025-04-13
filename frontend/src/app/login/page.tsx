@@ -13,7 +13,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch('https://acupuntura-backend-9qd7.onrender.com/api/login', {
+      const res = await fetch('http://localhost:3001/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),

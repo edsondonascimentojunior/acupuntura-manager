@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
@@ -35,7 +34,7 @@ app.post("/api/pacientes", async (req, res) => {
   }
 });
 
-// Agendamento de consulta
+// Agendamento de consulta (rota original)
 app.post("/api/agendamentos", async (req, res) => {
   const { pacienteId, data, horario, tipoDeAtendimento } = req.body;
 
@@ -60,7 +59,7 @@ app.post("/api/agendamentos", async (req, res) => {
   }
 });
 
-// Criar nova consulta com registro de atendimento
+// ✅ Nova rota: criar consulta com registro
 app.post("/api/consultas", async (req, res) => {
   const { pacienteId, data, horario, tipoDeAtendimento, registroAtendimento } = req.body;
 
@@ -105,7 +104,7 @@ app.get("/api/consultas", async (req, res) => {
   }
 });
 
-// Buscar histórico de um paciente (corrigido)
+// Buscar histórico de um paciente
 app.get("/api/pacientes/:id/historico", async (req, res) => {
   const pacienteId = parseInt(req.params.id);
 
@@ -113,10 +112,7 @@ app.get("/api/pacientes/:id/historico", async (req, res) => {
     const historico = await prisma.consulta.findMany({
       where: { pacienteId },
       orderBy: { data: "desc" },
-      include: {
-        paciente: true,
-        pagamentos: true // ✅ Correto: plural e compatível com o model
-      }
+      include: { paciente: true }
     });
 
     res.json(historico);
@@ -192,77 +188,20 @@ app.get("/api/pagamentos", async (req, res) => {
   }
 });
 
-// Atualiza o pagamento como "pago" e registra a forma de pagamento
+// Atualiza o pagamento como "pago"
 app.put("/api/pagamentos/:id/pagar", async (req, res) => {
   const id = parseInt(req.params.id);
-  const { formaPagamento } = req.body;
-
-  if (!formaPagamento) {
-    return res.status(400).json({ erro: "Forma de pagamento é obrigatória." });
-  }
 
   try {
     const pagamento = await prisma.pagamento.update({
       where: { id },
-      data: {
-        pago: true,
-        formaPagamento,
-      },
-      include: {
-        consulta: {
-          include: {
-            paciente: true
-          }
-        }
-      }
+      data: { pago: true }
     });
 
     res.json(pagamento);
   } catch (error) {
     console.error("Erro ao marcar como pago:", error);
     res.status(500).json({ erro: "Erro ao atualizar pagamento" });
-  }
-});
-
-// ✅ Corrigida: pagar consulta com verificação e criação/atualização de pagamento
-app.patch('/api/consultas/:id/pagar', async (req, res) => {
-  const consultaId = parseInt(req.params.id);
-  const { formaPagamento, valor } = req.body;
-
-  if (!formaPagamento || !valor) {
-    return res.status(400).json({ error: 'Forma de pagamento e valor são obrigatórios.' });
-  }
-
-  try {
-    const pagamentoExistente = await prisma.pagamento.findUnique({
-      where: { consultaId },
-    });
-
-    let pagamento;
-    if (pagamentoExistente) {
-      pagamento = await prisma.pagamento.update({
-        where: { consultaId },
-        data: {
-          pago: true,
-          formaPagamento,
-          valor: parseFloat(valor),
-        },
-      });
-    } else {
-      pagamento = await prisma.pagamento.create({
-        data: {
-          consultaId,
-          valor: parseFloat(valor),
-          formaPagamento,
-          pago: true,
-        },
-      });
-    }
-
-    res.json(pagamento);
-  } catch (error) {
-    console.error('Erro ao registrar pagamento:', error);
-    res.status(500).json({ error: 'Erro ao registrar pagamento.' });
   }
 });
 

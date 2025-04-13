@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -23,21 +23,18 @@ model Consulta {
   pacienteId          Int
   paciente            Paciente   @relation(fields: [pacienteId], references: [id])
   pagamentos          Pagamento[] 
-  registroAtendimento String?    
-  formaPagamento      String?    
+  registroAtendimento String?    // ✅ Novo campo para armazenar o histórico
 }
 
 model Pagamento {
   id             Int       @id @default(autoincrement())
-  consulta       Consulta  @relation(fields: [consultaId], references: [id])
   consultaId     Int
+  consulta       Consulta  @relation(fields: [consultaId], references: [id])
   valor          Float
-  pago           Boolean   @default(false)
-  formaPagamento String?   // agora opcional
   data           DateTime  @default(now())
-   @@unique([consultaId]) 
+  formaPagamento String
+  pago           Boolean   @default(false)
 }
-
 
 model Usuario {
   id    Int    @id @default(autoincrement())
