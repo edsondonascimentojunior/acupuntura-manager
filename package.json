@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "prisma": "^6.5.0"
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0"
   }
 }
