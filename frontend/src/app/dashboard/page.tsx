@@ -30,7 +30,7 @@ export default function DashboardPage() {
     }
 
     // Buscar consultas da semana
-    fetch('https://acupuntura-manager.onrender.com/consultas/semana')
+    fetch('https://acupuntura-backend-9qd7.onrender.com/api/consultas/semana')
       .then((res) => res.json())
       .then((data) => setConsultas(data))
       .catch((err) => console.error('Erro ao buscar consultas:', err));
