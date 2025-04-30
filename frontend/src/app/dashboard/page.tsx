@@ -9,8 +9,9 @@ import Layout from '@/components/Layout';
 // ✅ Interface para corrigir a tipagem de consultas
 interface ConsultaSemana {
   id: number;
-  data: string; 
-  servico?: string;
+  data: string;
+  horario: string;
+  tipoDeAtendimento: string;
   paciente: {
     nome: string;
   };
@@ -90,8 +91,8 @@ export default function DashboardPage() {
                   {consultas.map((consulta) => (
                     <tr key={consulta.id} className="border-t">
                       <td className="p-4">{consulta.paciente.nome}</td>
-                      <td className="p-4">{new Date(consulta.data).toLocaleString('pt-BR')}</td>
-                      <td className="p-4">{consulta.servico}</td>
+                      <td className="p-4">{new Date(consulta.data).toLocaleDateString('pt-BR')}, {consulta.horario}</td>
+                      <td className="p-4">{consulta.tipoDeAtendimento}</td>
                     </tr>
                   ))}
                 </tbody>
