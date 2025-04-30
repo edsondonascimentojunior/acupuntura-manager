@@ -3,6 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcryptjs");
+const { startOfWeek, endOfWeek } = require("date-fns");
+
 
 const app = express();
 const prisma = new PrismaClient();
@@ -102,6 +104,36 @@ app.get("/api/consultas", async (req, res) => {
   } catch (error) {
     console.error("Erro ao buscar consultas:", error);
     res.status(500).json({ erro: "Erro ao buscar consultas" });
+  }
+});
+
+app.get('/api/consultas/semana', async (req, res) => {
+  try {
+    const hoje = new Date();
+    const inicioSemana = startOfWeek(hoje, { weekStartsOn: 1 }); // segunda-feira
+    const fimSemana = endOfWeek(hoje, { weekStartsOn: 1 });      // domingo
+
+    const consultasSemana = await prisma.consulta.findMany({
+      where: {
+        data: {
+          gte: inicioSemana,
+          lte: fimSemana
+        }
+      },
+      include: {
+        paciente: {
+          select: { nome: true }
+        }
+      },
+      orderBy: {
+        data: 'asc'
+      }
+    });
+
+    res.json(consultasSemana);
+  } catch (error) {
+    console.error('Erro ao buscar consultas da semana:', error);
+    res.status(500).json({ erro: 'Erro ao buscar consultas da semana' });
   }
 });
 

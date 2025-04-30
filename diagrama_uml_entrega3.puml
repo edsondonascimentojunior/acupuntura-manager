@@ -1,0 +1,41 @@
+
+@startuml
+skinparam classAttributeIconSize 0
+
+class Usuario {
+  +id: Int
+  +nome: String
+  +email: String
+  +senha: String
+}
+
+class Paciente {
+  +id: Int
+  +nome: String
+  +cpf: String
+  +telefone: String
+}
+
+class Consulta {
+  +id: Int
+  +pacienteId: Int
+  +data: DateTime
+  +observacoes: String
+  +anotacoes: String
+  +pago: Boolean
+  +formaPagamento: String
+}
+
+class Pagamento {
+  +id: Int
+  +consultaId: Int
+  +valor: Float
+  +formaPagamento: String
+  +dataPagamento: DateTime
+}
+
+Usuario "1" --> "*" Paciente : acessa
+Paciente "1" --> "*" Consulta : possui
+Consulta "1" --> "0..1" Pagamento : gera
+
+@enduml
