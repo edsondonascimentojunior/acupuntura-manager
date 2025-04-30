@@ -6,9 +6,19 @@ import { CalendarDays, History, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 
+// ✅ Interface para corrigir a tipagem de consultas
+interface ConsultaSemana {
+  id: number;
+  dataHora: string;
+  servico?: string;
+  paciente: {
+    nome: string;
+  };
+}
+
 export default function DashboardPage() {
   const [usuario, setUsuario] = useState('');
-  const [consultas, setConsultas] = useState([]);
+  const [consultas, setConsultas] = useState<ConsultaSemana[]>([]);
   const router = useRouter();
 
   useEffect(() => {
