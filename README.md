@@ -19,7 +19,7 @@
 
 ## 🧩 Introdução
 
-Este guia tem como objetivo orientar os usuários na utilização do Sistema de Gerenciamento de Acupuntura, detalhando cada funcionalidade disponível na primeira entrega da aplicação.
+Este guia tem como objetivo orientar os usuários na utilização do Sistema de Gerenciamento de Acupuntura, detalhando cada funcionalidade disponível até a segunda entrega da aplicação, incluindo a visualização de consultas agendadas da semana no Dashboard.
 
 ---
 
@@ -27,7 +27,10 @@ Este guia tem como objetivo orientar os usuários na utilização do Sistema de 
 
 - Navegador moderno (Chrome, Firefox, Edge)  
 - Conexão com a internet  
-- Conta de usuário cadastrada no sistema  
+- Conta de usuário cadastrada no sistema: 
+- E-mail: exemplo@ex.com
+- Senha: 123456
+- Observação: Como o site tem hospedagem gratuita, ao ficar muito tempo em inatividade, ele demora 50 segundos para realizar o primeiro login. A navegação após (ou repetindo o login) não tem o desempenho afetado. 
 
 ---
 
@@ -102,6 +105,18 @@ Este guia tem como objetivo orientar os usuários na utilização do Sistema de 
 
 - Utilize o menu lateral esquerdo para navegar entre as seções.  
 - As mensagens de sucesso ou erro aparecem logo após as ações realizadas.
+
+---
+
+## 📅 Consultas da Semana (Dashboard)
+
+Na tela inicial do sistema, logo após o login, o usuário visualiza uma tabela com as consultas agendadas para a semana atual. Esta seção exibe:
+
+- Nome do paciente  
+- Data e horário da consulta  
+- Tipo de atendimento agendado  
+
+As consultas são carregadas automaticamente e filtradas com base na semana corrente (segunda a domingo). Caso não haja nenhuma consulta, será exibida uma mensagem informativa.
 
 ---
 
