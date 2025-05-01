@@ -130,3 +130,4 @@ As consultas são carregadas automaticamente e filtradas com base na semana corr
 ## 📞 Suporte e Contato
 
 Em caso de dúvidas, entre em contato com o administrador do sistema.
+- 📧 Email: juniornasc@hotmail.com
